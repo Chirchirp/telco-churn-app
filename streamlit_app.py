@@ -4,6 +4,7 @@ import pandas as pd
 import joblib
 import sklearn  # Ensure sklearn is loaded before unpickling
 import os
+import sklearn
 import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, confusion_matrix, classification_report
