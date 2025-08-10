@@ -2,10 +2,11 @@
 import streamlit as st
 import pandas as pd
 import joblib
-import sklearn  # just to ensure sklearn module is loaded before unpickle
-from sklearn.metrics import accuracy_score
+import sklearn  # Ensure sklearn is loaded before unpickling
 import os
-
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, confusion_matrix, classification_report
 
 # Page config
 st.set_page_config(page_title="Telco Churn Predictor", layout="centered")
@@ -29,26 +30,41 @@ except FileNotFoundError as e:
     st.error(str(e))
     st.stop()
 
-# Calculate model accuracy on test data
+# Evaluate model on test data
 if 'Churn' in test_df.columns:
     X_test = test_df.drop(columns=['Churn'])
     y_test = test_df['Churn']
     try:
         y_pred = model.predict(X_test)
+        y_proba = model.predict_proba(X_test)[:, 1]
         model_accuracy = accuracy_score(y_test, y_pred)
+        model_precision = precision_score(y_test, y_pred, zero_division=0)
+        model_recall = recall_score(y_test, y_pred, zero_division=0)
+        model_f1 = f1_score(y_test, y_pred, zero_division=0)
+        
+        # Confusion Matrix
+        cm = confusion_matrix(y_test, y_pred)
     except Exception as e:
         st.warning(f"Error evaluating model on test data: {e}")
         model_accuracy = None
 else:
     model_accuracy = None
 
+# App Title
 st.title("📡 Telecom Customer Churn Predictor")
 
+# Metrics
 if model_accuracy is not None:
-    st.info(f"Model Accuracy on test data: **{model_accuracy:.2%}**")
+    st.subheader("Model Performance on Test Data")
+    col1, col2, col3, col4 = st.columns(4)
+    col1.metric("Accuracy", f"{model_accuracy:.2%}")
+    col2.metric("Precision", f"{model_precision:.2%}")
+    col3.metric("Recall", f"{model_recall:.2%}")
+    col4.metric("F1-Score", f"{model_f1:.2%}")
 
-st.markdown("Enter customer details to get a churn probability and suggestion.")
 
+# Input Form
+st.markdown("### Enter customer details to get a churn probability")
 with st.form("input_form"):
     gender = st.selectbox("Gender", options=["Male", "Female"])
     senior = st.selectbox("Senior Citizen", options=[0, 1])
