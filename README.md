@@ -23,24 +23,7 @@ This project uses historical customer data to:
 
 ---
 
-## Project Structure
-churn-project/
-├─ data/
-│ └─ telco_churn.csv # Dataset
-├─ notebooks/
-│ └─ 01_explore.ipynb # EDA notebook
-├─ src/
-│ ├─ data_preprocessing.py # Data cleaning and preprocessing
-│ ├─ train_model.py # Model training script
-│ ├─ utils.py # Helper functions (optional)
-├─ app/
-│ └─ streamlit_app.py # Streamlit app
-├─ models/
-│ └─ churn_pipeline.pkl # Saved model
-├─ requirements.txt # Python dependencies
-└─ README.md # Project documentation
-
-Dataset
+## Dataset
 We use the Telco Customer Churn Dataset from Kaggle.
 It contains customer demographic and service information, along with a churn indicator.
 
@@ -57,9 +40,11 @@ This:
 
 Loads and preprocesses the dataset.
 
-Trains the ML model.
+---
 
-Saves the trained pipeline to models/churn_pipeline.pkl.
+## Trains the ML model.
+
+1. Saves the trained pipeline to models/churn_pipeline.pkl.
 
 2. Run the Streamlit App
 bash
@@ -74,8 +59,10 @@ Provides a sidebar for entering customer details.
 
 Displays churn probability, prediction result, and a simple visualisation.
 
+---
 
-Streamlit Interface
+
+## Streamlit Interface
 Features:
 
 Sidebar sliders, dropdowns, and inputs for customer details.
@@ -88,8 +75,10 @@ Colour-coded churn warning.
 
 Example screenshot:
 
+---
 
-Model Evaluation
+
+## Model Evaluation
 Accuracy
 
 Precision
@@ -103,7 +92,9 @@ ROC AUC
 We chose RandomForestClassifier for its balance of performance and interpretability.
 
 
-Deployment
+---
+
+## Deployment
 Deploy to Streamlit Community Cloud
 Push your project to GitHub.
 
@@ -126,19 +117,23 @@ Streamlit – Web app
 
 Matplotlib/Seaborn – Visualisations
 
+---
 
-Future Improvements
+## Future Improvements
 Add SHAP explainability for feature contributions.
 
 Deploy to AWS/GCP for scalability.
 
 Implement real-time prediction API.
 
+---
 
 License
 This project is licensed under the MIT License.
 Feel free to use and modify for your own purposes.
 
+
+---
 
 Author
 Your Name – Data Analyst / Data Scientist
